@@ -10,7 +10,7 @@ overlap with the family's pooled address and name, how many confident siblings
 there are, and how the candidate's own best-vs-second-best S1 margin compares.
 
 This targets exactly the two groups the miss diagnosis flagged. An alias-named
-record (``Orbivio``) shares nothing with the clean name but sits at the same
+record (a coined alias name) shares nothing with the clean name but sits at the same
 address as its siblings; an empty-address record shares no address at all but its
 name matches the family's names.
 
@@ -43,7 +43,7 @@ STAGE2_NAMES = [
     "own_rev_margin",    # best-vs-second-best S1 margin for this record
     # Decoy detection: the error log showed near-miss false positives sharing an
     # S1's address but with exactly one specific name word swapped for a
-    # different specific word (Delp/Doralynne's), vs. genuine noise where the
+    # different specific word (e.g. one surname replaced by another), vs. genuine noise where the
     # extra token is filler or a typo of the same word.
     "novel_s1_tok",       # S1 name-core tokens absent from the candidate
     "novel_cand_tok",     # candidate name-core tokens absent from S1
