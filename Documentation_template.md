@@ -54,14 +54,14 @@ self-contained rather than a domain-shift problem.
 
 **5. Address is a stronger signal than name.** Over 219,898 true pairs: 94.95% share >=2 address
 tokens and only 0.02% of non-empty-address pairs share none, while **14.35% share no name token at
-all** (alias records: `Orbivio`, `@burnsgarriga`, `abundisorion.com`). 4.39% have an empty candidate
+all** (alias records: coined brand words, `@handles`, `website.com`-style names). 4.39% have an empty candidate
 address. Only 0.0018% have neither signal.
 
 **Noise catalogue.** Names: legal suffixes added, removed or **moved to the front**
-(`llc shipp, lewis & niles marine`); bracketed suffixes; `M/s`, `Mr`, `DBA:`, `trading as`, `--`
-prefixes; `(ID: 94444)` tails; character typos (`Pr0tecon Saaeom`, `Beulaaville`); injected accents;
+(e.g. `llc acme & sons marine`); bracketed suffixes; `M/s`, `Mr`, `DBA:`, `trading as`, `--`
+prefixes; `(ID: 12345)` tails; character typos (e.g. `Acm3 Solutoins`, doubled vowels); injected accents;
 injected boilerplate (`Center`, `Service`); word transposition; ALLCAPS. Indic scripts are **not
-only Hindi** — Kannada appears too (`ಡಿಜಿಟಲ್ ವೈಟ್ ಬಿಲ್ಡರ್ಸ್`). Addresses: free **component
+only Hindi** — Kannada appears too. Addresses: free **component
 reordering**; `NULL`/`<NULL>` literals; `##`, `Door No`, `H.no`, `PO Box` prefixes; house numbers
 dropped or perturbed (`5721`->`5720`, `141`->`141-143`); city suffixes `Township`/`City`/`County`;
 state abbreviation vs full name vs Indic script. ZIP/PIN appears in only 6.5% of addresses, so
@@ -103,10 +103,10 @@ signal under IDF weighting instead of scoring each separately:
 | `n:` | name-core token (legal forms stripped) | names, reordered or suffix-shifted |
 | `s:` | **name consonant skeleton** | Indic transliterations, doubled-letter typos, accents |
 
-The skeleton is what makes Indic names reachable at all: `unidecode` renders `राम मार्केटिंग` as
-`raam maarketting`, sharing no token with `Ram Marketing`, but dropping vowels and collapsing
-doubled letters maps both to `rm mrktng`. The same mapping absorbs `beulaaville`/`beulaville` and
-`praaivett`/`private`.
+The skeleton is what makes Indic names reachable at all: `unidecode` renders a Devanagari name like `कृष्णा ट्रेडर्स` as
+`krssnnaa ttrerddrs`, sharing no token with `Krishna Traders`, but dropping vowels and collapsing
+doubled letters maps both to a near-identical consonant skeleton. The same mapping absorbs
+doubled-vowel typos and transliterated legal suffixes such as `praaivett`/`private`.
 
 Scoring is summed IDF of shared tokens divided by sqrt(candidate token count); tokens above a
 document-frequency cap are not indexed at all. Query blocks are cut on a **posting budget** rather
@@ -268,7 +268,7 @@ character n-grams, and this measurement is what stopped us doing the latter.
 
 **Common false positives (wrong merges).** Concentrated where an address is genuinely shared by
 different businesses — office buildings and multi-tenant municipal addresses, common in the Indian
-data (`Sir Vithaldas Chambers16 Bombay Samachar Marg Fort`). When several businesses share a
+data. When several businesses share a
 building and one has an alias-style name, address features agree strongly while name features carry
 no signal. The per-record assignment is the main defence: at most one of those entities can own the
 record.
@@ -301,9 +301,8 @@ Three further checks:
   (`Mérignac` -> `merignac`), apostrophes handled (`l'Yser` -> `yser`, `d'Artois` -> `artois`),
   `SARL`/`SAS`/`SA`/`SCI`/`SNC` stripped, `No` dropped.
 - **Unmatched France records are mostly true non-matches.** France's noise recipe includes
-  near-duplicate decoys on the same street: `Accueil Pharmacie SAS` at 58 Avenue Charles de Gaulle
-  versus `SARL Accueil Pharmacie` at 61, or `QW Pharmacie SAS` at 14 Bd Winston Churchill versus
-  `QW RESIDENCE SAS` at 27. Matching those would be false merges.
+  near-duplicate decoys on the same street: the same business name with a different legal
+  suffix at a nearby house number, or a shared name prefix with a different second word. Matching those would be false merges.
 - **House numbers.** Among predicted matches, the share where house numbers differ is France 8.95%,
   US 16.67%, India 25.75%, against 22.22% in train truth. France is the strictest.
 
