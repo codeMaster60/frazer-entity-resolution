@@ -22,7 +22,7 @@ scoring each signal separately:
     a:<address token>   n:<name token>   s:<name consonant skeleton>
 
 The skeleton is what makes Indic-script names reachable. `unidecode` renders
-`राम मार्केटिंग` as `raam maarketting`, which shares no token with `Ram Marketing`,
+a Devanagari name as a long-vowel transliteration that shares no token with its English form,
 but dropping vowels and collapsing doubled letters maps both to `rm mrktng`. The
 same trick absorbs doubled-letter typos and injected accents.
 

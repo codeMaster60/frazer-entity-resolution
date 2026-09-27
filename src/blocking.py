@@ -77,7 +77,7 @@ class BlockParams:
 def prefix_docs(docs: np.ndarray, n: int = 4) -> np.ndarray:
     """Truncate every token to its first ``n`` characters, keeping order-unique.
 
-    Token-exact indexing cannot see a single-character typo: "Beulaaville" and
+    Token-exact indexing cannot see a single-character typo: "Springvaale" and
     "Beulaville" share no token, and typos are pervasive in Sources 2 and 3.
     Indexing truncated tokens recovers those pairs at a fraction of the cost of
     character n-grams, since any typo after the prefix becomes invisible.

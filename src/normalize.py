@@ -14,7 +14,7 @@ from unidecode import unidecode
 
 # --- legal forms, dropped from the name "core" ------------------------------
 # Union of US, Indian and French forms plus common European ones. Word-order
-# noise moves these to the front ("llc shipp, lewis & niles marine"), so they
+# noise moves these to the front ("llc acme & sons marine"), so they
 # are removed as a token set rather than as a trailing suffix.
 LEGAL = frozenset("""
 inc incorporated incorporation llc lc llp lllp lp ltd ltda limited limitee ltee
